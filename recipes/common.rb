@@ -54,3 +54,11 @@ template "#{node['mcollective']['plugin_conf']}/activemq.cfg" do
   mode 0600
   variables :stomp => node['mcollective']['stomp']
 end
+
+# rabbitmq connector
+cookbook_file "#{node['mcollective']['rabbit_connector']}/rabbitmq.rb" do
+  source "plugins/connector/rabbitmq.rb"
+  mode 0644
+  owner "root"
+  group "root"
+end

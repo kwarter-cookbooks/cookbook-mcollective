@@ -13,6 +13,17 @@ plugin.psk = <%= @config['psk'] %>
 <%- end %>
 
 connector = <%= @config['connector'] %>
+plugin.<%= @config['connector'] %>.vhost = <%= @config['rabbitmq']['vhost'] %>
+plugin.<%= @config['connector'] %>.pool.size = 1
+plugin.<%= @config['connector'] %>.pool.1.host = <%= @config['rabbitmq']['host'] %>
+plugin.<%= @config['connector'] %>.pool.1.port = <%= @config['rabbitmq']['port'] %>
+plugin.<%= @config['connector'] %>.pool.1.user = <%= @config['rabbitmq']['username'] %>
+plugin.<%= @config['connector'] %>.pool.1.password = <%= @config['rabbitmq']['password'] %>
+#plugin.<%= @config['connector'] %>.pool.1.ssl = 1
+#plugin.<%= @config['connector'] %>.pool.1.ssl.ca = /var/lib/puppet/ssl/certs/ca.pem
+#plugin.<%= @config['connector'] %>.pool.1.ssl.cert = /var/lib/puppet/ssl/certs/web01.example.com.pem
+#plugin.<%= @config['connector'] %>.pool.1.ssl.key = /var/lib/puppet/ssl/private_keys/web01.example.com.pem
+#plugin.<%= @config['connector'] %>.pool.1.ssl.fallback = 0
 
 # Facts
 <% if @config['factsource'] == 'ohai' %>
