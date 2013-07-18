@@ -60,7 +60,7 @@ default['mcollective']['plugin_conf'] = "/etc/mcollective/plugin.d"
 #
 # Set this to 'ohai' to instead use the opscodeohai MCollective Fact
 # plugin.
-default['mcollective']['factsource']    = 'yaml'
+default['mcollective']['factsource']    = 'ohai'
 default['mcollective']['yaml_factfile'] = '/etc/mcollective/facts.yaml'
 
 default['mcollective']['classesfile']   = '/var/tmp/chefnode.txt'

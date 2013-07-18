@@ -38,6 +38,13 @@ template "/etc/mcollective/server.cfg" do
             :config       => node['mcollective']
 end
 
+cookbook_file "/etc/init.d/mcollective" do
+  source "mcollective"
+  mode 0755
+  owner "root"
+  group "root"
+end
+
 cookbook_file "#{node['mcollective']['site_plugins']}/facts/opscodeohai_facts.rb" do
   source "opscodeohai_facts.rb"
   mode 0644
