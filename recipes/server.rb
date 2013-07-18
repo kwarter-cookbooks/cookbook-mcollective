@@ -22,6 +22,13 @@ include_recipe "mcollective::common"
 # Install server components
 include_recipe node['mcollective']['recipes']['install_server']
 
+cookbook_file "/etc/init.d/mcollective" do
+  source "mcollective"
+  mode 0755
+  owner "root"
+  group "root"
+end
+
 service "mcollective" do
   supports :restart => true, :status => true
   action [:enable, :start]
@@ -36,13 +43,6 @@ template "/etc/mcollective/server.cfg" do
   notifies :restart, 'service[mcollective]'
   variables :site_plugins => site_libdir,
             :config       => node['mcollective']
-end
-
-cookbook_file "/etc/init.d/mcollective" do
-  source "mcollective"
-  mode 0755
-  owner "root"
-  group "root"
 end
 
 cookbook_file "#{node['mcollective']['site_plugins']}/facts/opscodeohai_facts.rb" do
