@@ -28,6 +28,7 @@ default['mcollective']['psk'] = "unset"
 
 # Connector plugin - activemq/rabbitmq/stomp
 default['mcollective']['connector']         = "rabbitmq"
+default['mcollective']['rabbit_connector']  = "/usr/share/mcollective/plugins/mcollective/connector"
 
 # Use direct addressing?  Not supported on all connector plugins
 # (see the MCollective documentation)
