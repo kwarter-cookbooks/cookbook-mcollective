@@ -23,7 +23,8 @@ when "debian"
   apt_repository "puppetlabs" do
     uri "http://apt.puppetlabs.com/"
     components [ node['lsb']['codename'], "main" ]
-    key "http://apt.puppetlabs.com/pubkey.gpg"
+    key "4BD6EC30"
+    keyserver "pgp.mit.edu"
     action :add
   end
 when "rhel"
