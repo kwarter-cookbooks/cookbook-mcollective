@@ -31,7 +31,7 @@ end
 
 service "mcollective" do
   supports :restart => true, :status => true
-  action [:enable, :start]
+  action [:enable, :restart]
 end
 
 # The libdir paths in the MC configuration need to omit the
