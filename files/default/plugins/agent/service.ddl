@@ -6,7 +6,7 @@ metadata    :name        => "service",
             :url         => "http://projects.puppetlabs.com/projects/mcollective-plugins/wiki",
             :timeout     => 60
 
-requires :mcollective => "2.2.1"
+#requires :mcollective => "2.2.1"
 
 action "status", :description => "Gets the status of a service" do
     display :always

@@ -26,7 +26,7 @@ module MCollective
 
         def state
           msg = %x{service #{@service} status}
-          {:status => msg.split("\s")[1].downcase, :msg => msg}
+          {:status => msg, :msg => msg}
         end
       end
     end
