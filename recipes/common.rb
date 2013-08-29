@@ -62,3 +62,8 @@ cookbook_file "#{node['mcollective']['rabbit_connector']}/rabbitmq.rb" do
   owner "root"
   group "root"
 end
+
+# install gem open4
+gem_package "open4" do
+  action :install
+end

@@ -44,6 +44,11 @@ fi
 # create pid file if it does not exist
 [ ! -f ${pidfile} ] && { touch ${pidfile} ; }
 
+#
+#ulimit -Hn 350000
+#ulimit -Sn 350000
+
+
 # See how we were called.
 case "$1" in
     start)

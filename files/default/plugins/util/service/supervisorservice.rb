@@ -26,7 +26,7 @@ module MCollective
 
         def state
           msg = %x{supervisorctl status #{@service}}
-          {:status => msg.split("\s")[1].downcase, :msg => msg}
+          {:status => msg, :msg => msg}
         end
       end
     end

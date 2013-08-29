@@ -3,19 +3,19 @@ module MCollective
     module Service
       class ServiceService<Base
         def stop
-          %x{service #{@service} stop}
+          %x{sudo service #{@service} stop}
           sleep 1
           state
         end
 
         def start
-          %x{service #{@service} start}
+          %x{sudo service #{@service} start}
           sleep 1
           state
         end
 
         def restart
-          %x{service #{@service} restart}
+          %x{sudo service #{@service} restart}
           sleep 1
           status
         end
@@ -25,7 +25,7 @@ module MCollective
         end
 
         def state
-          msg = %x{service #{@service} status}
+          msg = %x{sudo service #{@service} status}
           {:status => msg, :msg => msg}
         end
       end
