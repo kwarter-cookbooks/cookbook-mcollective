@@ -39,7 +39,7 @@ end
 site_libdir = node['mcollective']['site_plugins'].sub(/\/mcollective$/, '')
 template "/etc/mcollective/server.cfg" do
   source "server.cfg.erb"
-  mode 0600
+  mode 0755
   notifies :restart, 'service[mcollective]'
   variables :site_plugins => site_libdir,
             :config       => node['mcollective']
@@ -47,7 +47,7 @@ end
 
 cookbook_file "#{node['mcollective']['site_plugins']}/facts/opscodeohai_facts.rb" do
   source "opscodeohai_facts.rb"
-  mode 0644
+  mode 0755
   notifies :restart, 'service[mcollective]'
 end
 
@@ -55,7 +55,7 @@ include_recipe "chef_handler"
 
 cookbook_file "#{node['chef_handler']['handler_path']}/mcollective_classlist.rb" do
   source "mcollective_classlist.rb"
-  mode 0644
+  mode 0755
 end
 
 chef_handler "MCollective::ClassList" do

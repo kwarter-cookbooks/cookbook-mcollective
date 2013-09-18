@@ -36,7 +36,7 @@ end
 directory node['mcollective']['plugin_conf'] do
   owner "root"
   group "root"
-  mode 00755
+  mode 0755
   action :create
 end
 
@@ -44,21 +44,21 @@ end
 # stomp connector
 template "#{node['mcollective']['plugin_conf']}/stomp.cfg" do
   source "plugin-stomp.cfg.erb"
-  mode 0600
+  mode 0755
   variables :stomp => node['mcollective']['stomp']
 end
 
 # activemq connector
 template "#{node['mcollective']['plugin_conf']}/activemq.cfg" do
   source "plugin-activemq.cfg.erb"
-  mode 0600
+  mode 0755
   variables :stomp => node['mcollective']['stomp']
 end
 
 # rabbitmq connector
 cookbook_file "#{node['mcollective']['rabbit_connector']}/rabbitmq.rb" do
   source "plugins/connector/rabbitmq.rb"
-  mode 0644
+  mode 0755
   owner "root"
   group "root"
 end
