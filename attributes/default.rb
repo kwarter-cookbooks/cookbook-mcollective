@@ -38,7 +38,7 @@ default['mcollective']['direct_addressing'] = "y"
 default['mcollective']['stomp']['hostname'] = "localhost"
 default['mcollective']['stomp']['port'] = "6163"
 default['mcollective']['stomp']['username'] = "mcollective"
-default['mcollective']['stomp']['password'] = "marionette"
+default['mcollective']['stomp']['password'] = ""
 
 # MCollective Identity and collective membership
 default['mcollective']['identity']        = node['fqdn']
