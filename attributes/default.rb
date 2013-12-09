@@ -53,6 +53,11 @@ default['mcollective']['loglevel'] = "info"
 default['mcollective']['site_plugins'] = "/etc/mcollective/site_plugins/mcollective"
 default['mcollective']['plugin_conf'] = "/etc/mcollective/plugin.d"
 
+# Performance
+ default['mcollective']['direct_addressing_threshold'] = "10"
+ default['mcollective']['ttl'] = "60"
+
+
 # Fact Source
 # The default option configures MCollective to read a YAML file
 # produced by a Chef handler, containing a configurable list of

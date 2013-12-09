@@ -33,3 +33,8 @@ fact_cache_time = 300
 factsource = yaml
 plugin.yaml = <%= @config['yaml_factfile'] %>
 <% end %>
+
+# Performance settings:
+
+direct_addressing_threshold = <%= @config['direct_addressing_threshold'] %>
+ttl = <%= @config['ttl'] %>
