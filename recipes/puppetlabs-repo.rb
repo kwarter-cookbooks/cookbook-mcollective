@@ -20,15 +20,6 @@
 
 case node['platform_family']
 when "debian"
-<<<<<<< HEAD
-  remote_file "#{Chef::Config[:file_cache_path]}/puppetlabs-release-#{node['lsb']['codename']}.deb" do
-    source "http://apt.puppetlabs.com/puppetlabs-release-#{node['lsb']['codename']}.deb"
-  end
-  dpkg_package 'puppetlabs-release' do
-    source "#{Chef::Config[:file_cache_path]}/puppetlabs-release-#{node['lsb']['codename']}.deb"
-    action :install
-    notifies :run, "execute[apt-get update]", :immediately
-=======
   include_recipe "apt::default"
 
   apt_repository "puppetlabs" do
@@ -37,7 +28,6 @@ when "debian"
     key "4BD6EC30"
     keyserver "pgp.mit.edu"
     action :add
->>>>>>> upstream/master
   end
   apt_repository "puppetlabs-deps" do
     uri "http://apt.puppetlabs.com/"

@@ -42,29 +42,21 @@ default['mcollective']['psk'] = "unset"
 # PSK callertype can be: uid, username, gid, group, or identity
 default['mcollective']['psk_callertype'] = "uid"
 
-<<<<<<< HEAD
 # Connector plugin - activemq/rabbitmq/stomp
 default['mcollective']['connector']         = "rabbitmq"
 default['mcollective']['rabbit_connector']  = "/usr/share/mcollective/plugins/mcollective/connector"
-=======
-# Connector plugin - activemq/rabbitmq/stomp/redis
-default['mcollective']['connector']         = "activemq"
->>>>>>> upstream/master
 
 # Use direct addressing?  Not supported on all connector plugins
 # (see the MCollective documentation)
 default['mcollective']['direct_addressing'] = "y"
 
-<<<<<<< HEAD
 # STOMP server details (used by stomp and activemq connectors)
 default['mcollective']['stomp']['hostname'] = "localhost"
 default['mcollective']['stomp']['port'] = "6163"
 default['mcollective']['stomp']['username'] = "mcollective"
 default['mcollective']['stomp']['password'] = ""
-=======
 # RabbitMQ details (used by rabbitmq connector)
 default['mcollective']['rabbitmq']['vhost'] = "/"
->>>>>>> upstream/master
 
 # MCollective Identity and collective membership
 default['mcollective']['identity']        = node['fqdn']
@@ -136,4 +128,3 @@ default['mcollective']['recipes']['install_server'] = 'mcollective::_install_ser
 default['mcollective']['recipes']['install_client'] = 'mcollective::_install_client_pkg'
 # Whether to enable the puppetlabs apt/yum repo when installing from packages.
 default['mcollective']['enable_puppetlabs_repo'] = true
-

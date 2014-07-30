@@ -68,31 +68,22 @@ end
 # stomp connector
 template "#{node['mcollective']['plugin_conf']}/stomp.cfg" do
   source "plugin-stomp.cfg.erb"
-<<<<<<< HEAD
-  mode 0755
-=======
   owner 'root'
   group node['mcollective']['group']
   mode '0640'
->>>>>>> upstream/master
   variables :stomp => node['mcollective']['stomp']
 end
 
 # activemq connector
 template "#{node['mcollective']['plugin_conf']}/activemq.cfg" do
   source "plugin-activemq.cfg.erb"
-<<<<<<< HEAD
-  mode 0755
-=======
   owner 'root'
   group node['mcollective']['group']
   mode '0640'
->>>>>>> upstream/master
   variables :stomp => node['mcollective']['stomp']
 end
 
-# rabbitmq connector
-<<<<<<< HEAD
+# custom - rabbitmq connector
 cookbook_file "#{node['mcollective']['rabbit_connector']}/rabbitmq.rb" do
   source "plugins/connector/rabbitmq.rb"
   mode 0755
@@ -103,7 +94,8 @@ end
 # install gem open4
 gem_package "open4" do
   action :install
-=======
+
+# rabbitmq connector
 template "#{node['mcollective']['plugin_conf']}/rabbitmq.cfg" do
   source "plugin-rabbitmq.cfg.erb"
   owner 'root'
@@ -130,5 +122,4 @@ if node['mcollective']['connector'] == 'redis'
     mode '0640'
     variables :redis => node['mcollective']['redis']
   end
->>>>>>> upstream/master
 end
