@@ -22,14 +22,22 @@ if node['mcollective']['enable_puppetlabs_repo']
   include_recipe 'mcollective::puppetlabs-repo'
 end
 
-package "rubygems" do
-  action :install
-end
+#
+# HEADS-UP: This is a HACK, but works ;)
+#
+# AG.- On Ubuntu 14.04 rubygems is not available, so package as been removed
+#      Reference of issue: http://projects.puppetlabs.com/issues/17804
+#package "rubygems" do
+#  action :install
+#end
 
 package "rubygem-stomp" do
   case node['platform_family']
   when "debian"
-    package_name "libstomp-ruby"
+    # AG .- Other HACK, libstom-ruby is not available on Ubuntu 14.04
+    #       use ruby-stomp instead
+    #package_name "libstomp-ruby"
+    package_name "ruby-stomp"
   when "rhel","fedora"
     package_name "rubygem-stomp"
   end
