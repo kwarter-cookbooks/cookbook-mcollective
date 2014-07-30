@@ -43,6 +43,15 @@ ATTRIBUTES
 Refer to `attributes/default.rb` in the cookbook directory for details
 of all available attributes.
 
+ * `node['mcollective']['users']` - Array of usernames to add to the
+"mcollective" group.
+ * `node['mcollective'][install_chef_handler?]` - Installs a Chef
+   handler exposing data about the node to mcollective.
+ * `node['mcollective'][install_chef_agent?]` - Installs an
+   mcollective agent to control chef-client/chef-solo.  You'll need
+   this to be installed on both client and server machines to be
+   useful.
+
 Frequently Used Settings
 ------------------------
 

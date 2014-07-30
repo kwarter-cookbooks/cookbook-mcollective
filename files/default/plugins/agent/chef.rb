@@ -6,16 +6,8 @@ module MCollective
     # credits the original Puppet agent by R.I. Pienaar.
     #
     class Chef<RPC::Agent
-      metadata      :name => "Chef Client Agent",
-      :description        => "Manage the chef-client daemon",
-      :author             => "Zachary Stevens <zts@cryptocracy.com>",
-      :license            => "Apache License 2.0",
-      :version            => "1.0",
-      :url                => "http://github.com/zts/chef-cookbook-mcollective",
-      :timeout            => 60
-
       def startup_hook
-        @initscript = @config.pluginconf["chef.client-initscript"] || "/etc/init.d/chef-client"
+        @initscript = @config.pluginconf["chef.client-initscript"] || "service chef-client"
         @pidfile = @config.pluginconf["chef.client-pidfile"] || "/var/run/chef/client.pid"
       end
 
@@ -38,10 +30,13 @@ module MCollective
         out = ""
         err = ""
         exitcode = run("#{@initscript} status", :stdout => out, :stderr => err)
-        if exitcode == 0 then
-          reply.statusmsg = "chef-client daemon is running"
-        else
-          reply.fail! "chef-client daemon is NOT running"
+        case exitcode
+        when 0
+          reply[:status] = "OK"
+        when 1
+          reply[:status] = "Missing"
+        when 3
+          reply[:status] = "Stopped"
         end
       end
 

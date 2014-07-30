@@ -3,9 +3,13 @@ maintainer_email "zts@cryptocracy.com"
 license          "Apache v2.0"
 name             "mcollective"
 description      "Provides the MCollective orchestration framework."
+<<<<<<< HEAD
 version          "0.11.5"
+=======
+version          "0.15.0"
+>>>>>>> upstream/master
 
-%w{ debian ubuntu redhat centos fedora scientific}.each do |os|
+%w{ debian ubuntu redhat centos amazon fedora scientific}.each do |os|
   supports os
 end
 

@@ -34,6 +34,14 @@ service "mcollective" do
   action [:enable, :restart]
 end
 
+# Restart mcollective if the chef agent changes
+if node['mcollective']['install_chef_agent?']
+  ['rb', 'ddl'].each do |ext|
+    r = resources("cookbook_file[#{node['mcollective']['site_plugins']}/agent/chef.#{ext}]")
+    r.notifies :restart, "service[mcollective]"
+  end
+end
+
 # The libdir paths in the MC configuration need to omit the
 # trailing "/mcollective"
 site_libdir = node['mcollective']['site_plugins'].sub(/\/mcollective$/, '')
@@ -47,20 +55,33 @@ end
 
 cookbook_file "#{node['mcollective']['site_plugins']}/facts/opscodeohai_facts.rb" do
   source "opscodeohai_facts.rb"
+<<<<<<< HEAD
   mode 0755
   notifies :restart, 'service[mcollective]'
+=======
+  mode 0644
+  notifies :restart, 'service[mcollective]' if node['mcollective']['factsource'] == 'ohai'
+>>>>>>> upstream/master
 end
 
-include_recipe "chef_handler"
+if node['mcollective']['install_chef_handler?']
+  include_recipe "chef_handler"
 
+<<<<<<< HEAD
 cookbook_file "#{node['chef_handler']['handler_path']}/mcollective_classlist.rb" do
   source "mcollective_classlist.rb"
   mode 0755
 end
+=======
+  cookbook_file "#{node['chef_handler']['handler_path']}/mcollective_classlist.rb" do
+    source "mcollective_classlist.rb"
+    mode 0644
+  end
+>>>>>>> upstream/master
 
-chef_handler "MCollective::ClassList" do
-  source "#{node['chef_handler']['handler_path']}/mcollective_classlist.rb"
-  supports :report => true, :exception => false
-  action :enable
+  chef_handler "MCollective::ClassList" do
+    source "#{node['chef_handler']['handler_path']}/mcollective_classlist.rb"
+    supports :report => true, :exception => false
+    action :enable
+  end
 end
-

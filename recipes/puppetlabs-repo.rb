@@ -20,6 +20,7 @@
 
 case node['platform_family']
 when "debian"
+<<<<<<< HEAD
   remote_file "#{Chef::Config[:file_cache_path]}/puppetlabs-release-#{node['lsb']['codename']}.deb" do
     source "http://apt.puppetlabs.com/puppetlabs-release-#{node['lsb']['codename']}.deb"
   end
@@ -27,43 +28,84 @@ when "debian"
     source "#{Chef::Config[:file_cache_path]}/puppetlabs-release-#{node['lsb']['codename']}.deb"
     action :install
     notifies :run, "execute[apt-get update]", :immediately
+=======
+  include_recipe "apt::default"
+
+  apt_repository "puppetlabs" do
+    uri "http://apt.puppetlabs.com/"
+    components [ node['lsb']['codename'], "main" ]
+    key "4BD6EC30"
+    keyserver "pgp.mit.edu"
+    action :add
+>>>>>>> upstream/master
+  end
+  apt_repository "puppetlabs-deps" do
+    uri "http://apt.puppetlabs.com/"
+    components [ node['lsb']['codename'], "dependencies" ]
+    key "4BD6EC30"
+    keyserver "pgp.mit.edu"
+    notifies :run, "execute[apt-get update]", :immediately
+    action :add
   end
 when "rhel"
-  yum_key "RPM-GPG-KEY-puppetlabs" do
-    url "http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs"
-    action :add
+  # Version 3 of the yum cookbook removes the "yum_key" resource,
+  # among other changes.  This block assumes that an older version is
+  # being used, and switches to the new style if that fails
+  begin
+    yum_cookbook_3 = false
+    yum_key "RPM-GPG-KEY-puppetlabs" do
+      url "http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs"
+      action :add
+    end
+  rescue NameError
+    yum_cookbook_3 = true
+  end
+
+  # on amazon linux, $releasever is "latest", which the repo doesn't support
+  if platform?("amazon")
+    release = "6Server"
+  else
+    release = "$releasever"
   end
 
   yum_repository "puppetlabs" do
     name "puppetlabs"
     description "Puppet Labs Packages"
-    url "http://yum.puppetlabs.com/el/$releasever/products/$basearch"
+    url "http://yum.puppetlabs.com/el/#{release}/products/$basearch"
+    gpgkey "http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs" if yum_cookbook_3
     action :add
   end
 
   yum_repository "puppetlabs-deps" do
     name "puppetlabs-deps"
     description "Dependencies for Puppet Labs Software"
-    url "http://yum.puppetlabs.com/el/$releasever/dependencies/$basearch"
+    url "http://yum.puppetlabs.com/el/#{release}/dependencies/$basearch"
+    gpgkey "http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs" if yum_cookbook_3
     action :add
   end
 when "fedora"
-  yum_key "RPM-GPG-KEY-puppetlabs" do
-    url "http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs"
-    action :add
+  begin
+    yum_cookbook_3 = false
+    yum_key "RPM-GPG-KEY-puppetlabs" do
+      url "http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs"
+      action :add
+    end
+  rescue NameError
+    yum_cookbook_3 = true
   end
 
   yum_repository "puppetlabs" do
     name "puppetlabs"
     description "Puppet Labs Packages"
     url "http://yum.puppetlabs.com/fedora/f$releasever/products/$basearch"
-    url "http://yum.puppetlabs.com/fedora/"
+    gpgkey "http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs" if yum_cookbook_3
     action :add
   end
   yum_repository "puppetlabs-deps" do
     name "puppetlabs-deps"
     description "Dependencies for Puppet Labs Software"
     url "http://yum.puppetlabs.com/fedora/$releasever/dependencies/$basearch"
+    gpgkey "http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs" if yum_cookbook_3
     action :add
   end
 end

@@ -17,6 +17,20 @@
 # limitations under the License.
 #
 
+# MCollective users - usernames in this array will be added to the
+# mcollective group, which is permitted to read required config files.
+default['mcollective']['users'] = []
+
+# Chef Integration - these options control whether to install an
+# MCollective agent (for controlling Chef), and Chef handlers to
+# expose data about the node to mco.  Disable these if you don't want
+# this functionality, or are installing it another way.
+default['mcollective']['install_chef_agent?'] = true
+default['mcollective']['install_chef_handler?'] = true
+
+# Name of the mcollective group
+default['mcollective']['group'] = 'mcollective'
+
 # Specify a version to install, or leave nil for latest
 default['mcollective']['package']['version'] = nil
 
@@ -25,20 +39,32 @@ default['mcollective']['securityprovider'] = "psk"
 
 # The key for the psk security provider
 default['mcollective']['psk'] = "unset"
+# PSK callertype can be: uid, username, gid, group, or identity
+default['mcollective']['psk_callertype'] = "uid"
 
+<<<<<<< HEAD
 # Connector plugin - activemq/rabbitmq/stomp
 default['mcollective']['connector']         = "rabbitmq"
 default['mcollective']['rabbit_connector']  = "/usr/share/mcollective/plugins/mcollective/connector"
+=======
+# Connector plugin - activemq/rabbitmq/stomp/redis
+default['mcollective']['connector']         = "activemq"
+>>>>>>> upstream/master
 
 # Use direct addressing?  Not supported on all connector plugins
 # (see the MCollective documentation)
 default['mcollective']['direct_addressing'] = "y"
 
+<<<<<<< HEAD
 # STOMP server details (used by stomp and activemq connectors)
 default['mcollective']['stomp']['hostname'] = "localhost"
 default['mcollective']['stomp']['port'] = "6163"
 default['mcollective']['stomp']['username'] = "mcollective"
 default['mcollective']['stomp']['password'] = ""
+=======
+# RabbitMQ details (used by rabbitmq connector)
+default['mcollective']['rabbitmq']['vhost'] = "/"
+>>>>>>> upstream/master
 
 # MCollective Identity and collective membership
 default['mcollective']['identity']        = node['fqdn']
