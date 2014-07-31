@@ -94,6 +94,7 @@ end
 # install gem open4
 gem_package "open4" do
   action :install
+end
 
 # rabbitmq connector
 template "#{node['mcollective']['plugin_conf']}/rabbitmq.cfg" do
