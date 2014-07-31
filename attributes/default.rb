@@ -51,10 +51,11 @@ default['mcollective']['rabbit_connector']  = "/usr/share/mcollective/plugins/mc
 default['mcollective']['direct_addressing'] = "y"
 
 # STOMP server details (used by stomp and activemq connectors)
-default['mcollective']['stomp']['hostname'] = "localhost"
-default['mcollective']['stomp']['port'] = "6163"
-default['mcollective']['stomp']['username'] = "mcollective"
-default['mcollective']['stomp']['password'] = ""
+#default['mcollective']['stomp']['hostname'] = "localhost"
+#default['mcollective']['stomp']['port'] = "6163"
+#default['mcollective']['stomp']['username'] = "mcollective"
+#default['mcollective']['stomp']['password'] = ""
+
 # RabbitMQ details (used by rabbitmq connector)
 default['mcollective']['rabbitmq']['vhost'] = "/"
 
